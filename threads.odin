@@ -16,7 +16,7 @@ spawn_workers :: proc(fns: []proc(t: ^thread.Thread)) -> ([dynamic]^thread.Threa
     threads: [dynamic]^thread.Thread
 
     // create channels
-    // chann: chan.Chan
+    chann: chan.Chan
     chann_map: map[int]chan.Chan  // defer delete
 
     for i in 0 ..< 3
@@ -35,6 +35,10 @@ spawn_workers :: proc(fns: []proc(t: ^thread.Thread)) -> ([dynamic]^thread.Threa
 	if i == 1
 	{
 	    t.data = &chann_map
+	}
+	else
+	{
+	    t.data = &chann
 	}
 
 	append(&threads, t)
