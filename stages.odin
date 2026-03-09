@@ -27,3 +27,12 @@ stage2 :: proc(chann: ^chan.Chan)
     // send transformed value to next worker in the pipeline
     chan.send(chann, value)
 }
+
+stage3 :: proc(chann: ^chan.Chan)
+{
+    value, ok := chan.recv(chann)
+    
+    if !ok {return}
+    
+    fmt.printfln("Transformed Value: %d", value)
+}
